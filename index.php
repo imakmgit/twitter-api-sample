@@ -15,7 +15,7 @@
 
         <div class="container">
             <div class="search-container">
-                <h1>Search # tags in twitter</h1>
+                <h1>Search # tags in Twitter</h1>
                 <div class="search-box-container">
                     <div class="search-box inline-block">
                         <input type="text" placeholder="" value="#custserv"/>
