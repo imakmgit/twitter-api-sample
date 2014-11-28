@@ -13,7 +13,7 @@
         renderTweets = function (tweets) {
             var container = $('.tweets');
 
-            if (next_results === null) {
+            if (next_results == null) {
                 $('.tweet').removeClass('prepended');
             }
 
@@ -24,7 +24,7 @@
             }
 
             for(i = 0 ; i < tweets.length; i++) {
-                var tweet =  '<div class="tweet' + (next_results === null ? ' prepended' : '') + '">' +
+                var tweet =  '<div class="tweet' + (next_results == null ? ' prepended' : '') + '">' +
                                 '<div class="user-image">' +
                                     '<img src="' + tweets[i].user.profile_image_url + '"/>' +
                                 '</div>' +
@@ -37,7 +37,7 @@
                                 '<div class="clear"></div>' +
                             '</div>';
 
-                if (next_results === null) {
+                if (next_results == null) {
                     if ($('.prepended').length > 0) {
                         $(tweet).insertAfter($('.prepended:last'));
                     } else {
@@ -83,7 +83,7 @@
             var query_string = '';
 
             if (next_results !== false) {
-                query_string = (next_results === null ? refresh_url : next_results);
+                query_string = (next_results == null ? refresh_url : next_results);
             } else {
                 query_string = '?q=' + encodeURIComponent(last_search_text) + '&count=50';
             }
@@ -104,15 +104,15 @@
                         return;
                     }
 
-                    if (response.tweets === undefined) {
+                    if (typeof response.tweets != 'undefined') {
                         renderTweets(response.tweets);
                         $('.load-more').removeClass('hide');
                     } else {
-                        if (next_results === false && response.next_results === null) {
+                        if (next_results === false && response.next_results == null) {
                             $('.load-more').addClass('hide').attr('disabled');
                             showMessage('info', 'No tweet found for text "' + last_search_text + '"');
                         } else {
-                            if (next_results === null) {
+                            if (next_results == null) {
                                 showMessage('info', 'No new tweet found for text "' + last_search_text + '"');
                             } else {
                                 showMessage('info', 'All Tweets from the past have been loaded. Clicking on "Load more" button will fetch latest tweets for text "' + last_search_text + '"');
@@ -124,7 +124,7 @@
                     }
                     next_results = response.next_results;
                     refresh_url = response.refresh_url;
-                    if (next_results === null) {
+                    if (next_results == null) {
                         $('.search-submit-btn button').text('Refresh');
                     } else {
                         $('.search-submit-btn button').text('Load more');
