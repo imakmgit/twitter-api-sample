@@ -7,7 +7,7 @@
  * @package  Twitter_API_PHP
  * @author   Abani Meher <abanimeher@gmail.com>
  * @license  MIT License
- * @link
+ * @link     https://github.com/imakmgit/twitter-api-sample/blob/master/twitter-api/TwitterClient.php
  */
 
 /**
@@ -17,7 +17,7 @@
  * @package  Twitter_Client_PHP
  * @author   Abani Meher <abanimeher@gmail.com>
  * @license  MIT License
- * @link
+ * @link     https://github.com/imakmgit/twitter-api-sample/blob/master/twitter-api/TwitterClient.php
  */
 class TwitterClient
 {
@@ -211,8 +211,10 @@ class TwitterClient
         return $this->_development_mode;
     }
 
-    /*
+    /**
      * Returns json decode error message text by its error code
+     *
+     * @param int $error_code - error code returned while decoding json data
      *
      * @return string
      */
@@ -413,7 +415,7 @@ class TwitterClient
         $response = curl_exec($request_handler);
 
         //check if response has any error
-        if($this->_hasErrorInResponse($response, $request_handler)) {
+        if ($this->_hasErrorInResponse($response, $request_handler)) {
 
             throw new Exception(json_encode($this->_error_message), $this->_error_code);
         }
@@ -475,7 +477,7 @@ class TwitterClient
             $result->debug_message['message'] = $exception->getMessage();
             $result->debug_message['code'] = $exception->getCode();
             $result->debug_message['trace'] = $exception->getTraceAsString();
-        } elseif(!$this->isDevelopmentModeEnabled() && $this->isErrorLoggingEnabled()) {
+        } elseif (!$this->isDevelopmentModeEnabled() && $this->isErrorLoggingEnabled()) {
 
             //log in a file/db. For now log in error_log
             error_log('[TWITTER-API-ERROR-LOG]Request Data:- ' . json_encode($this->request_data));

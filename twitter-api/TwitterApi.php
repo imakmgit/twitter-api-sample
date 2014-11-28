@@ -6,18 +6,18 @@
  * @package  Twitter_API_PHP
  * @author   Abani Meher <abanimeher@gmail.com>
  * @license  MIT License
- * @link
+ * @link     https://github.com/imakmgit/twitter-api-sample/blob/master/twitter-api/TwitterApi.php
  */
 
 /**
  * Twitter Feed Search PHP Client
  *
- * @extends TwitterConnector
+ * @extends  TwitterConnector
  * @category API
  * @package  Twitter_Connector_PHP
  * @author   Abani Meher <abanimeher@gmail.com>
  * @license  MIT License
- * @link
+ * @link     https://github.com/imakmgit/twitter-api-sample/blob/master/twitter-api/TwitterApi.php
  */
 class TwitterApi extends TwitterClient
 {
@@ -72,9 +72,9 @@ class TwitterApi extends TwitterClient
         $screen_name_replace_pattern = '<a target="_blank" href="http://twitter.com/\2">@\2</a>';
 
         //convert urls and hashtags to anchor
-        $text = preg_replace($url_search_pattern, $url_replace_pattern , $text);
-        $text = preg_replace($hash_tag_search_pattern, $hash_tag_replace_pattern , $text);
-        $text = preg_replace($screen_name_search_pattern, $screen_name_replace_pattern , $text);
+        $text = preg_replace($url_search_pattern, $url_replace_pattern, $text);
+        $text = preg_replace($hash_tag_search_pattern, $hash_tag_replace_pattern, $text);
+        $text = preg_replace($screen_name_search_pattern, $screen_name_replace_pattern, $text);
 
         return $text;
     }

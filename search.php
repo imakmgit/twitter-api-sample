@@ -6,7 +6,7 @@
  * @package  Twitter_HASTAG_SEARCH_APP
  * @author   Abani Meher <abanimeher@gmail.com>
  * @license  MIT License
- * @link
+ * @link     https://github.com/imakmgit/twitter-api-sample/blob/master/search.php
  */
 require_once 'twitter-api/include.php';
 
@@ -54,7 +54,7 @@ $extra_params['count'] = empty($_GET['count']) ? 50 : $_GET['count'];
 if (isset($_GET['max_id'])) {
 
     $extra_params['max_id'] = $_GET['max_id'];
-} elseif(isset($_GET['since_id'])) {
+} elseif (isset($_GET['since_id'])) {
 
     $extra_params['since_id'] = $_GET['since_id'];
 }
@@ -116,7 +116,7 @@ if (count($result->statuses) > 0) {
 }
 
 //save search meta details for next call for this search
-if(property_exists($result->search_metadata, 'next_results')) {
+if (property_exists($result->search_metadata, 'next_results')) {
 
     $response['next_results'] = $result->search_metadata->next_results;
 } else {
