@@ -52,4 +52,30 @@ class TwitterApi extends TwitterConnector
 
         return $result;
     }
+
+    /**
+     * convert special texts like url, hasg tags, mentioned users to anchors
+     *
+     * @param string $text - Text to filter and format
+     *
+     * @return string
+     */
+    public function formatSpecialText($text)
+    {
+        $url_search_pattern = '|([\w\d]*)\s?(https?://([\d\w\.-]+\.[\w\.]{2,6})[^\s\]\[\<\>]*/?)|i';
+        $url_replace_pattern = '$1 <a target="_blank" href="$2">$2</a>';
+
+        $hash_tag_search_pattern = '/(^|\s)#(\w*[a-zA-Z_]+\w*)/';
+        $hash_tag_replace_pattern = '\1<a target="_blank" href="http://twitter.com/search?q=%23\2">#<b>\2</b></a>';
+
+        $screen_name_search_pattern = '/(^|\s)@(\w*[a-zA-Z_]+\w*)/';
+        $screen_name_replace_pattern = '<a target="_blank" href="http://twitter.com/\2">@\2</a>';
+
+        //convert urls and hashtags to anchor
+        $text = preg_replace($url_search_pattern, $url_replace_pattern , $text);
+        $text = preg_replace($hash_tag_search_pattern, $hash_tag_replace_pattern , $text);
+        $text = preg_replace($screen_name_search_pattern, $screen_name_replace_pattern , $text);
+
+        return $text;
+    }
 }
