@@ -18,21 +18,48 @@
             }
 
             if ($('.tweet').length === 0) {
-                showMessage('success', 'Displaying ' + tweets.length + ' tweets for text "' + last_search_text + '" which have been retweeted atleast once. Click "Load more" button(available at bottom of the page also) to load more tweets.');
+                showMessage('success', 'Displaying ' + tweets.length + ' tweets for text "' + last_search_text +
+                                        '" which have been retweeted atleast once. Click "Load more" button' +
+                                        '(available at bottom of the page also) to load more tweets.');
             } else {
-                showMessage('success', 'Fetched ' + tweets.length + ' more tweets. Showing ' + (tweets.length + $('.tweet').length) + ' tweets in total.');
+                showMessage('success', 'Fetched ' + tweets.length + ' more tweets. Showing ' +
+                                        (tweets.length + $('.tweet').length) + ' tweets in total.');
             }
 
             for(i = 0 ; i < tweets.length; i++) {
-                var tweet =  '<div class="tweet' + (next_results == null ? ' prepended' : '') + '">' +
+                if(tweets[i].original_tweet != false) {
+                    var original_tweet = '<div class="retweet-info">Retwitted on following status (so Twitter returned above also in response)</div>' +
+                            '<div class="tweet retwitted">' +
                                 '<div class="user-image">' +
-                                    '<img src="' + tweets[i].user.profile_image_url + '"/>' +
+                                    '<img src="' + tweets[i].original_tweet.user.profile_image_url + '" title="' + tweets[i].original_tweet.user.screen_name + '"/>' +
                                 '</div>' +
                                 '<div class="tweet-info">' +
-                                    '<div class="user-name">' + tweets[i].user.name + '</div>' +
+                                    '<div class="user-name" title="' + tweets[i].original_tweet.user.description + '">' +
+                                        '<a href="http://twitter.com/' + tweets[i].original_tweet.user.screen_name + '">' + tweets[i].original_tweet.user.name + '</a>' +
+                                        '<span class="screen-name">(@' + tweets[i].original_tweet.user.screen_name + ')</span>' +
+                                    '</div>' +
+                                    '<div class="tweet-text">' + tweets[i].original_tweet.text + '</div>' +
+                                    '<div class="date"></div>' +
+                                '</div>' +
+                                '<div class="clear"></div>' +
+                            '</div>';
+                } else {
+                    var original_tweet = '';
+                }
+
+                var tweet =  '<div class="tweet' + (next_results == null ? ' prepended' : '') + '">' +
+                                '<div class="user-image">' +
+                                    '<img src="' + tweets[i].user.profile_image_url + '" title="' + tweets[i].user.screen_name + '"/>' +
+                                '</div>' +
+                                '<div class="tweet-info">' +
+                                    '<div class="user-name" title="' + tweets[i].user.description + '">' +
+                                        '<a href="http://twitter.com/' + tweets[i].user.screen_name + '">' + tweets[i].user.name + '</a>' +
+                                        '<span class="screen-name">(@' + tweets[i].user.screen_name + ')</span>' +
+                                    '</div>' +
                                     '<div class="tweet-text">' + tweets[i].text + '</div>' +
                                     '<div class="date"></div>' +
                                     '<div class="retweet-count"> <b>Retweet Count :</b> ' + tweets[i].retweet_count +  '</div>' +
+                                    original_tweet +
                                 '</div>' +
                                 '<div class="clear"></div>' +
                             '</div>';
@@ -85,7 +112,7 @@
             if (next_results !== false) {
                 query_string = (next_results == null ? refresh_url : next_results);
             } else {
-                query_string = '?q=' + encodeURIComponent(last_search_text) + '&count=50';
+                query_string = '?q=' + encodeURIComponent(last_search_text) + '&count=50&include_entities=1';
             }
 
             $.ajax({
@@ -115,7 +142,8 @@
                             if (next_results == null) {
                                 showMessage('info', 'No new tweet found for text "' + last_search_text + '"');
                             } else {
-                                showMessage('info', 'All Tweets from the past have been loaded. Clicking on "Load more" button will fetch latest tweets for text "' + last_search_text + '"');
+                                showMessage('info', 'All Tweets from the past have been loaded. Clicking on "Load more" ' +
+                                                    'button will fetch latest tweets for text "' + last_search_text + '"');
                             }
                         }
                         if ($('.tweet').length === 0) {
@@ -135,17 +163,25 @@
                     $('.search-submit-btn button').removeAttr('disabled').removeClass('hide');
                     $('.search-submit-btn img').addClass('hide');
                     $('.load-more').removeAttr('disabled').text('Load more');
-                    showMessage('error', 'Oops! Something seems to be broken. Please try again later. If you see this repeatedly, please contact our support team.');
+                    showMessage('error', 'Oops! Something seems to be broken. Please try again later. ' +
+                                        'If you see this repeatedly, please contact our support team.');
                 }
             })
         },
         loadTweets = function () {
 
+            var search_text = $('.search-box input').val();
+
+            if($.trim(search_text).length == 0) {
+                showMessage('error', 'Provide a # tag to search in twitter feeds.');
+                $('.search-box input').focus();
+                return;
+            }
+
             $('.search-submit-btn button').attr('disabled', 'disabled').addClass('hide');
             $('.search-submit-btn img').removeClass('hide');
             $('.load-more').attr('disabled', 'disabled').text('Loading...');
 
-            var search_text = $('.search-box input').val();
             if (search_text.substr(0, 1) !== '#') {
                 search_text = '#' + search_text;
             }
@@ -153,8 +189,10 @@
             if (last_search_text != search_text) {
                 reset(search_text);
             }
+            $('.message').remove();
             sendRequest();
         };
+
         $(document).ready(function () {
             $('.search-submit-btn button, .load-more').click(function () {
                 loadTweets();
