@@ -12,9 +12,9 @@
 /**
  * Twitter Feed Search PHP Client
  *
- * @extends  TwitterConnector
+ * @extends  TwitterClient
  * @category API
- * @package  Twitter_Connector_PHP
+ * @package  Twitter_API_PHP
  * @author   Abani Meher <abanimeher@gmail.com>
  * @license  MIT License
  * @link     https://github.com/imakmgit/twitter-api-sample/blob/master/twitter-api/TwitterApi.php

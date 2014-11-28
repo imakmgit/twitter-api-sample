@@ -110,7 +110,7 @@ class TwitterClient
     const API_BASE_URL = 'https://api.twitter.com/1.1/';
 
     /**
-     * Creates a Twitter API connector.
+     * Creates a Twitter API client.
      * Requires php5-curl
      *
      * @param array $config - array of keys oauth_token, oauth_token_secret,
