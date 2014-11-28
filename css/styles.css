@@ -1,0 +1,151 @@
+body {
+    margin:0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+header, footer {
+    background-color: #55acee;
+    height: 50px;
+    width: 100%;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+.search-container {
+    position: relative;
+    padding: 20px;
+    margin-bottom: 10px;
+    line-height: 16px;
+    text-shadow: 0 1px 0 #fff;
+    background-color: #f9f9f9;
+    border: 1px solid #e1e8ed;
+    border-radius: 6px;
+    background-clip: padding-box;
+    margin-top: 20px;
+}
+.search-container h1 {
+    margin: 30px 0;
+    font-size: 36px;
+    font-weight: 300;
+    color: #444;
+    text-align: center;
+}
+.search-box-container {
+    width: 100%;
+    text-align: center;
+}
+.search-box input {
+    width: 80%;
+    min-width: 420px;
+    margin:auto;
+    font-size: 20px;
+    color: #66757f;
+    padding: 3px 2px;
+}
+.search-submit-btn {
+    min-width: 120px;
+}
+.search-submit-btn button, .load-more {
+    font-size: 20px;
+    color: #ffffff;
+    padding: 4px 10px;
+    background-color: #55acee;
+    border: 1px solid #3b88c3;
+    cursor: pointer;
+}
+.inline-block {
+    display: inline-block;
+}
+
+.tweet {
+    background-color: #E5F2F7;
+    border: 1px solid #0084B4;
+    padding: 10px 15px;
+}
+.tweet+.tweet {
+    border-top: none;
+    border-radius: 0px;
+}
+.tweet:first-child {
+    border-radius: 5px 5px 0 0;
+}
+.tweet:last-child {
+    border-radius: 0 0 5px 5px ;
+    margin-bottom: 20px;
+}
+
+.user-image, .tweet-info {
+    display: inline-block;
+    float: left;
+}
+.tweet-info {
+    padding-left: 10px;
+}
+.user-image {
+    height: 48px;
+    width: 48px;
+    overflow: hidden;
+}
+.user-name {
+    font-weight: bold;
+}
+.retweet-count {
+    display: inline-block;
+}
+.clear {
+    clear: both;
+}
+.tweet-text {
+    padding: 5px 0;
+}
+.hide {
+    display: none;
+}
+.load-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.scroll-top {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    border: 2px solid #ffffff;
+    background-color: #55acee;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+.message {
+    width: 50%;
+    padding: 5px 10px;
+    margin: auto;
+    position: fixed;
+    color: #ffffff;
+    font-weight: bold;
+    top: 0px;
+    left: 25%;
+    text-align: center;
+    border: 2px solid #ffffff;
+}
+.error {
+    background-color: #c9302c;
+}
+.success {
+    background-color: #5cb85c;
+}
+.info {
+    background-color: #ec971f;
+}
+.search-submit-btn img {
+    position: absolute;
+    margin-top: -25px;
+}
+button:disabled {
+    background-color: #929292;
+    border: 1px solid #929292;
+}
