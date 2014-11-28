@@ -43,7 +43,7 @@ $twitter_api->enableDevelopmentMode();
 if (empty($_GET['q']) || trim($_GET['q']) == '') {
 
     $response['error'] = true;
-    $response['message'] = 'Provide a # tag to search in twitter feeds.';
+    $response['message'] = 'Provide a # tag to search in Twitter feeds.';
     echo json_encode($response);
     exit;
 }

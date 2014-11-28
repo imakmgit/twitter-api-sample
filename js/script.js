@@ -81,7 +81,7 @@
                 $('footer').css('position', 'relative');
 
                 if ($('.scroll-top').length === 0) {
-                    $('body').append($('<div></div>').addClass('scroll-top hide').text('Scroll Top'));
+                    $('body').append($('<div></div>').addClass('scroll-top hide').text('Scroll to top'));
                     $('.scroll-top').click(function () {
                         $(window.opera ? 'html' : 'html, body').animate({
                             scrollTop: 0
@@ -173,7 +173,7 @@
             var search_text = $('.search-box input').val();
 
             if($.trim(search_text).length == 0) {
-                showMessage('error', 'Provide a # tag to search in twitter feeds.');
+                showMessage('error', 'Provide a # tag to search in Twitter feeds.');
                 $('.search-box input').focus();
                 return;
             }
