@@ -19,7 +19,7 @@
  * @license  MIT License
  * @link
  */
-class TwitterApi extends TwitterConnector
+class TwitterApi extends TwitterClient
 {
     /**
      * Searchs in Twitter feeds for specified text
