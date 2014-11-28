@@ -40,10 +40,10 @@ $twitter_api->enableDevelopmentMode();
 //$twitter_api->enableErrorLogging();
 
 //get search text from query string
-if (empty($_GET['q'])) {
+if (empty($_GET['q']) || trim($_GET['q']) == '') {
 
     $response['error'] = true;
-    $response['message'] = 'Provide text to search in Twitter feeds.';
+    $response['message'] = 'Provide a # tag to search in twitter feeds.';
     echo json_encode($response);
     exit;
 }
@@ -78,9 +78,29 @@ if (count($result->statuses) > 0) {
         //get tweets which has been retweeted atleat once
         if ($tweet->retweet_count > 0) {
 
+            //if hash tag text is not found in tweet, search the tweet on which user has retwitted
+            if (strpos(strtolower($tweet->text), strtolower(rawurldecode($search_text))) === false) {
+
+                $retweeted_status = $tweet->retweeted_status;
+
+                //save original tweet in an array
+                $original_tweet = array(
+                    'text' => $twitter_api->formatSpecialText($retweeted_status->text),
+                    'user' => array(
+                        'id' => $retweeted_status->user->id_str,
+                        'name' => $retweeted_status->user->name,
+                        'screen_name' => $retweeted_status->user->screen_name,
+                        'description' => $retweeted_status->user->description,
+                        'profile_image_url' => $retweeted_status->user->profile_image_url,
+                    ),
+                    'retweet_count' => $retweeted_status->retweet_count,
+                );
+            } else {
+                $original_tweet = false;
+            }
+
             $response['tweets'][] = array(
-                'created_at' => $tweet->created_at,
-                'text' => $tweet->text,
+                'text' =>  $twitter_api->formatSpecialText($tweet->text),
                 'user' => array(
                     'id' => $tweet->user->id_str,
                     'name' => $tweet->user->name,
@@ -89,13 +109,19 @@ if (count($result->statuses) > 0) {
                     'profile_image_url' => $tweet->user->profile_image_url,
                 ),
                 'retweet_count' => $tweet->retweet_count,
+                'original_tweet' => $original_tweet,
             );
         }
     }
 }
 
 //save search meta details for next call for this search
-$response['next_results'] = $result->search_metadata->next_results;
+if(property_exists($result->search_metadata, 'next_results')) {
+
+    $response['next_results'] = $result->search_metadata->next_results;
+} else {
+    $response['next_results'] = null;
+}
 $response['refresh_url'] = $result->search_metadata->refresh_url;
 echo json_encode($response);
 exit;
