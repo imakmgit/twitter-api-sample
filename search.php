@@ -3,7 +3,7 @@
  * File processes ajax search request and send response in json to client side
  *
  * @category API
- * @package  Twitter_API_PHP
+ * @package  Twitter_HASTAG_SEARCH_APP
  * @author   Abani Meher <abanimeher@gmail.com>
  * @license  MIT License
  * @link
